@@ -29,13 +29,13 @@ export const sendEmail = async ({ subscribers, emailData, clientData, storeData,
 
         const options = {
             method: 'POST',
-            url: 'https://upvisor.ipzmarketing.com/api/v1/send_emails',
+            url: `https://${process.env.MAILRELAY_ACCOUNT}.ipzmarketing.com/api/v1/send_emails`,
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': apiKey
             },
             data: {
-                from: { email: 'jorge@upvisor.cl', name: 'Jorge Tapia' },
+                from: { email: process.env.MAILRELAY_EMAIL, name: process.env.MAILRELAY_NAME },
                 to: [{ email: subscriber.email, name: subscriber.firstName }],
                 subject: replacePlaceholders(emailData.affair, dataMap),
                 html_part: `

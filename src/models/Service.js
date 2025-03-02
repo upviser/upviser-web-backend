@@ -17,7 +17,7 @@ const ServiceSchema = new mongoose.Schema({
     steps: [stepSchema],
     typeService: { type: String },
     typePrice: { type: String, required: true },
-    typePay: { type: String, required: true },
+    typePay: { type: String},
     price: { type: Number }, 
     anualPrice: { type: Number },
     plans: { functionalities: [{ type: String }], plans: [{ name: { type: String }, description: { type: String }, price: { type: Number }, anualPrice: { type: Number }, characteristics: [{ type: String }], functionalities: [{ name: { type: String }, value: { type: String } }] }] },

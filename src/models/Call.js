@@ -7,7 +7,7 @@ const CallSchema = new mongoose.Schema({
     duration: { type: String },
     description: { type: String },
     price: { type: Number },
-    labels: [{ text: { type: String }, name: { type: String }, data: { type: String } }],
+    labels: [{ type: { type: String }, text: { type: String }, data: { type: String }, datas: [{ type: String }] }],
     buttonText: { type: String },
     tags: [{ type: String }],
     action: { type: String },
