@@ -9,11 +9,13 @@ export const createDesign = async (req, res) => {
     try {
         const design = await Design.findOne()
         if (design) {
-            await Design.findByIdAndUpdate(design._id, req.body, { new: true })
+            const designUpdate = await Design.findByIdAndUpdate(design._id, req.body, { new: true })
+            return res.send(designUpdate)
+        } else {
+            const newDesign = new Design(req.body)
+            const newDesignSave = await newDesign.save()
+            return res.send(newDesignSave)
         }
-        const newDesign = new Design(req.body)
-        await newDesign.save()
-        return res.send(newDesign)
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
