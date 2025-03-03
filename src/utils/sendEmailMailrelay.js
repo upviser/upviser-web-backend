@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { updateClientEmailStatus } from '../utils/updateEmail.js'
 
-export const sendEmail = async ({ subscribers, emailData, clientData, storeData, automatizationId, style }) => {
+export const sendEmailMailrelay = async ({ subscribers, emailData, clientData, storeData, automatizationId, style }) => {
 
     const apiKey = process.env.MAILRELAY_API
 

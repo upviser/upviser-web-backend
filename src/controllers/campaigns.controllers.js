@@ -1,6 +1,6 @@
 import Email from '../models/Email.js'
 import Client from '../models/Client.js'
-import { sendEmail } from '../utils/sendEmail.js'
+import { sendEmailBrevo } from '../utils/sendEmailBrevo.js'
 import { formatDateToCron } from '../utils/cronFormat.js'
 import cron from 'node-cron'
 import StoreData from '../models/StoreData.js'
@@ -34,7 +34,7 @@ export const createCampaign = async (req, res) => {
                 const clientData = await ClientData.find()
                 const style = await Style.findOne()
                 subscribers = subscribers.filter(subscriber => !subscriber.tags.includes('desuscrito'))
-                sendEmail({ subscribers: subscribers, emailData: { affair: affair, title: title, paragraph: paragraph, buttonText: buttonText, url: url }, clientData: clientData, storeData: storeData[0], automatizationId: newCampaign._id, style: style })
+                sendEmailBrevo({ subscribers: subscribers, emailData: { affair: affair, title: title, paragraph: paragraph, buttonText: buttonText, url: url }, clientData: clientData, storeData: storeData[0], automatizationId: newCampaign._id, style: style })
             })
         } else {
             let subscribers = []
@@ -47,7 +47,7 @@ export const createCampaign = async (req, res) => {
             const clientData = await ClientData.find()
             const style = await Style.findOne()
             subscribers = subscribers.filter(subscriber => !subscriber.tags.includes('desuscrito'))
-            sendEmail({ subscribers: subscribers, emailData: { affair: affair, title: title, paragraph: paragraph, buttonText: buttonText, url: url }, clientData: clientData, storeData: storeData[0], automatizationId: newCampaign._id, style: style })
+            sendEmailBrevo({ subscribers: subscribers, emailData: { affair: affair, title: title, paragraph: paragraph, buttonText: buttonText, url: url }, clientData: clientData, storeData: storeData[0], automatizationId: newCampaign._id, style: style })
         }
     } catch (error) {
         return res.status(500).json({message: error.message})

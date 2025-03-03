@@ -3,7 +3,7 @@ import Client from '../models/Client.js'
 import ClientData from '../models/ClientData.js'
 import StoreData from '../models/StoreData.js'
 import cron from 'node-cron'
-import { sendEmail } from '../utils/sendEmail.js'
+import { sendEmailBrevo } from '../utils/sendEmailBrevo.js'
 import Style from '../models/Style.js'
 
 export const loadTasks = async () => {
@@ -24,7 +24,7 @@ export const loadTasks = async () => {
                         const clientData = await ClientData.find();
                         const storeData = await StoreData.find();
                         const style = await Style.find();
-                        sendEmail({ subscribers: [client], emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style[0] });
+                        sendEmailBrevo({ subscribers: [client], emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style[0] });
                     }
                 }
             } else if (task.subscribers.length) {
@@ -44,14 +44,14 @@ export const loadTasks = async () => {
                     const clientData = await ClientData.find()
                     const storeData = await StoreData.find()
                     const style = await Style.findOne()
-                    sendEmail({ subscribers: filteredSubscribers, emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style })
+                    sendEmailBrevo({ subscribers: filteredSubscribers, emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style })
                 }
             } else {
                 const subscribers = await Client.find({ tags: task.startValue }).lean()
                 const clientData = await ClientData.find()
                 const storeData = await StoreData.find()
                 const style = await Style.findOne()
-                sendEmail({ subscribers: subscribers, emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style })
+                sendEmailBrevo({ subscribers: subscribers, emailData: task.emailData, clientData: clientData, storeData: storeData[0], automatizationId: task.automatizationId, style: style })
             }
         })
     })

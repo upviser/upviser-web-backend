@@ -1,6 +1,6 @@
 import Calendar from '../models/Calendar.js'
 import Meeting from '../models/Meeting.js'
-import { sendEmail } from '../utils/sendEmail.js'
+import { sendEmailBrevo } from '../utils/sendEmailBrevo.js'
 import Client from '../models/Client.js'
 import axios from 'axios'
 import ClientData from '../models/ClientData.js'
@@ -157,7 +157,7 @@ export const CreateMeeting = async (req, res) => {
             const clientData = await ClientData.find()
             const storeData = await StoreData.find()
             const style = await Style.find()
-            await sendEmail({ subscribers: [{ name: req.body.firstName, email: req.body.email }], emailData: { affair: `¡Hola ${req.body.firstName}! Tu llamada ha sido agendada con exito`, title: 'Hemos agendado tu llamada exitosamente', paragraph: `¡Hola ${req.body.firstName}! Te queriamos informar que tu llamada con fecha ${new Date(req.body.date).getDate()}/${new Date(req.body.date).getMonth() + 1}/${new Date(req.body.date).getFullYear()} a las ${new Date(req.body.date).getHours()}:${new Date(req.body.date).getMinutes() >= 9 ? new Date(req.body.date).getMinutes() : `0${new Date(req.body.date).getMinutes()}`} ha sido agendada con exito, aqui te dejamos el acceso a la llamada en el siguiente boton.`, buttonText: 'Ingresar a la llamada', url: meetingResponse.data.start_url }, clientData: clientData, storeData: storeData[0], style: style[0] })
+            await sendEmailBrevo({ subscribers: [{ name: req.body.firstName, email: req.body.email }], emailData: { affair: `¡Hola ${req.body.firstName}! Tu llamada ha sido agendada con exito`, title: 'Hemos agendado tu llamada exitosamente', paragraph: `¡Hola ${req.body.firstName}! Te queriamos informar que tu llamada con fecha ${new Date(req.body.date).getDate()}/${new Date(req.body.date).getMonth() + 1}/${new Date(req.body.date).getFullYear()} a las ${new Date(req.body.date).getHours()}:${new Date(req.body.date).getMinutes() >= 9 ? new Date(req.body.date).getMinutes() : `0${new Date(req.body.date).getMinutes()}`} ha sido agendada con exito, aqui te dejamos el acceso a la llamada en el siguiente boton.`, buttonText: 'Ingresar a la llamada', url: meetingResponse.data.start_url }, clientData: clientData, storeData: storeData[0], style: style[0] })
         } else {
             const integrations = await Integrations.findOne().lean()
             if (integrations && integrations.apiToken && integrations.apiToken !== '' && integrations.apiPixelId && integrations.apiPixelId !== '') {
@@ -221,7 +221,7 @@ export const CreateMeeting = async (req, res) => {
             const clientData = await ClientData.find()
             const storeData = await StoreData.find()
             const style = await Style.find()
-            await sendEmail({ subscribers: [{ name: req.body.firstName, email: req.body.email }], emailData: { affair: `¡Hola ${req.body.firstName}! Tu visita ha sido agendada con exito`, title: 'Hemos agendado tu visita exitosamente', paragraph: `¡Hola ${req.body.firstName}! Te queriamos informar que tu visita con fecha ${new Date(req.body.date).getDate()}/${new Date(req.body.date).getMonth() + 1}/${new Date(req.body.date).getFullYear()} a las ${new Date(req.body.date).getHours()}:${new Date(req.body.date).getMinutes() >= 9 ? new Date(req.body.date).getMinutes() : `0${new Date(req.body.date).getMinutes()}`} ha sido agendada con exito, la visita sera en ${storeData[0].address}, ${storeData[0].city}, ${storeData[0].region}.` }, clientData: clientData, storeData: storeData[0], style: style[0] })
+            await sendEmailBrevo({ subscribers: [{ name: req.body.firstName, email: req.body.email }], emailData: { affair: `¡Hola ${req.body.firstName}! Tu visita ha sido agendada con exito`, title: 'Hemos agendado tu visita exitosamente', paragraph: `¡Hola ${req.body.firstName}! Te queriamos informar que tu visita con fecha ${new Date(req.body.date).getDate()}/${new Date(req.body.date).getMonth() + 1}/${new Date(req.body.date).getFullYear()} a las ${new Date(req.body.date).getHours()}:${new Date(req.body.date).getMinutes() >= 9 ? new Date(req.body.date).getMinutes() : `0${new Date(req.body.date).getMinutes()}`} ha sido agendada con exito, la visita sera en ${storeData[0].address}, ${storeData[0].city}, ${storeData[0].region}.` }, clientData: clientData, storeData: storeData[0], style: style[0] })
         }
     } catch (error) {
         console.log(error)
@@ -233,7 +233,7 @@ export const deleteMeeting = async (req, res) => {
     try {
         const meetingDelete = await Meeting.findOneAndDelete(req.params.id)
         res.json(meetingDelete)
-        await sendEmail({ content: `
+        await sendEmailBrevo({ content: `
             <h1 style="font-weight: 500; margin-bottom: 0px; color: #2A2A2A; text-align: center;">Tu llamada ha sido cancelada correctamente</h1>
             <p style="font-size: 16px; color: #2D2D2D; text-align: center;">¡Hola ${meetingDelete.firstName}! Te queriamos avisar que tu llamada ha sido cancelada correctamente.</p>
         `, subject: `¡Hola ${meetingDelete.firstName}! Tu llamada ha sido cancelada con exito`, email: meetingDelete.email })
@@ -254,7 +254,7 @@ export const editMeeting = async (req, res) => {
             minute: 'numeric'
         });
         res.json(meetingEdit)
-        await sendEmail({ content: `
+        await sendEmailBrevo({ content: `
             <h1 style="font-weight: 500; margin-bottom: 0px; color: #2A2A2A; text-align: center;">Tu llamada ha sido reagendada correctamente</h1>
             <p style="font-size: 16px; color: #2D2D2D; text-align: center;">¡Hola ${meetingEdit.firstName}! Te queriamos avisar que tu llamada para ver tu caso con respecto a la declaración de renta año 2024 ha sido reagendada correctamente.</p>
             <p style="font-size: 16px; color: #2D2D2D; text-align: center;">Fecha: ${fechaLlamada}</p>

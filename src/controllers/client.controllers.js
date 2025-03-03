@@ -1,7 +1,7 @@
 import Client from '../models/Client.js'
 import Automatization from '../models/Automatization.js'
 import StoreData from '../models/StoreData.js'
-import { sendEmail } from '../utils/sendEmail.js'
+import { sendEmailBrevo } from '../utils/sendEmailBrevo.js'
 import { formatDateToCron } from '../utils/cronFormat.js'
 import cron from 'node-cron'
 import ClientData from '../models/ClientData.js'
@@ -98,7 +98,7 @@ export const createClient = async (req, res) => {
               const clientData = await ClientData.find();
               const storeData = await StoreData.find();
               const style = await Style.findOne()
-              sendEmail({ subscribers: [client], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
+              sendEmailBrevo({ subscribers: [client], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
             }
           } else {
             const dateCron = formatDateToCron(new Date(email.date));
@@ -128,7 +128,7 @@ export const createClient = async (req, res) => {
                   const clientData = await ClientData.find();
                   const storeData = await StoreData.find();
                   const style = await Style.findOne()
-                  sendEmail({ subscribers: [clientUpdate], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
+                  sendEmailBrevo({ subscribers: [clientUpdate], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
                 }
               }
             });
@@ -188,7 +188,7 @@ export const createClient = async (req, res) => {
               const clientData = await ClientData.find();
               const storeData = await StoreData.find();
               const style = await Style.findOne()
-              sendEmail({ subscribers: [newClientSave], emailData: email, storeData: storeData[0], clientData: clientData, automatizationId: automatization._id, style: style });
+              sendEmailBrevo({ subscribers: [newClientSave], emailData: email, storeData: storeData[0], clientData: clientData, automatizationId: automatization._id, style: style });
             }
           } else {
             const dateCron = formatDateToCron(new Date(email.date));
@@ -216,7 +216,7 @@ export const createClient = async (req, res) => {
                   const clientData = await ClientData.find();
                   const storeData = await StoreData.find();
                   const style = await Style.findOne()
-                  sendEmail({ subscribers: [clientUpdate], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
+                  sendEmailBrevo({ subscribers: [clientUpdate], emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: automatization._id, style: style });
                 }
               }
             });

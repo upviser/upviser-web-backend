@@ -1,6 +1,6 @@
 import Automatization from '../models/Automatization.js'
 import Client from '../models/Client.js'
-import { sendEmail } from '../utils/sendEmail.js'
+import { sendEmailBrevo } from '../utils/sendEmailBrevo.js'
 import { formatDateToCron } from '../utils/cronFormat.js'
 import cron from 'node-cron'
 import ClientData from '../models/ClientData.js'
@@ -63,7 +63,7 @@ export const createAutomatization = async (req, res) => {
                 const clientData = await ClientData.find()
                 const storeData = await StoreData.find()
                 const style = await Style.findOne()
-                sendEmail({ subscribers: filteredSubscribers, emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: newAutomatizationSave._id, style: style })
+                sendEmailBrevo({ subscribers: filteredSubscribers, emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: newAutomatizationSave._id, style: style })
             } else {
                 let subscribers = []
                 if (startType === 'Formulario completado') {
@@ -105,7 +105,7 @@ export const createAutomatization = async (req, res) => {
                     const clientData = await ClientData.find()
                     const storeData = await StoreData.find()
                     const style = await Style.findOne()
-                    sendEmail({ subscribers: filteredSubscribers, emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: newAutomatizationSave._id, style: style })
+                    sendEmailBrevo({ subscribers: filteredSubscribers, emailData: email, clientData: clientData, storeData: storeData[0], automatizationId: newAutomatizationSave._id, style: style })
                 })
             }
         })
