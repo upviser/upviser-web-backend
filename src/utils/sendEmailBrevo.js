@@ -76,7 +76,7 @@ export const sendEmailBrevo = async ({ subscribers, emailData, clientData, store
                                                             ${emailData.buttonText && emailData.buttonText !== '' && emailData.url && emailData.url !== ''
                                                                 ? `
                                                                     <br>
-                                                                    <a href="${process.env.API_URL}/tracking/clic?id=${id}&email=${subscriber.email}&automatizationId=${automatizationId}&url=${replacePlaceholders(emailData.url, dataMap)}" style="padding: 10px 30px; background-color: ${style?.primary}; border: none; color: ${style?.button}; border-radius: 12px; font-size: 15px; text-decoration: none;">${emailData.buttonText}</a>
+                                                                    <a href="${replacePlaceholders(emailData.url, dataMap)}" style="padding: 10px 30px; background-color: ${style?.primary}; border: none; color: ${style?.button}; border-radius: 12px; font-size: 15px; text-decoration: none;">${emailData.buttonText}</a>
                                                                 `
                                                                 : ''
                                                             }
@@ -102,7 +102,6 @@ export const sendEmailBrevo = async ({ subscribers, emailData, clientData, store
                             </table>
                         </td></tr></tbody>
                     </table>
-                    <img src='${process.env.API_URL}/tracking/open?id=${id}&email=${subscriber.email}&automatizationId=${automatizationId}' width='1' height='1' />
                 </div>
             `,
             tags: [id]
