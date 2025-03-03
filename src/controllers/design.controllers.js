@@ -113,7 +113,8 @@ export const createDefaultPages = async (req, res) => {
     try {
         const newDesign = new Design({
           header: {
-            topStrip: ''
+            topStrip: '',
+            logo: 'Logo'
           },
           pages: [
             {
