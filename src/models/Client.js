@@ -51,7 +51,11 @@ const ClientSchema = new mongoose.Schema({
   meetings: [meetingSchema],
   tags: [{ type: String }],
   emails: [emailSchema],
-  data: [{ name: { type: String }, value: { type: String } }]
+  data: [{ name: { type: String }, value: { type: String } }],
+  address: { type: String },
+  details: { type: String },
+  city: { type: String },
+  region: { type: String }
 }, {
   timestamps: true
 })

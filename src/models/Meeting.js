@@ -14,7 +14,11 @@ const MeetingSchema = new mongoose.Schema({
     funnel: { type: String },
     step: { type: String },
     calendar: { type: String },
-    type: { type: String }
+    type: { type: String },
+    address: { type: String },
+    details: { type: String },
+    city: { type: String },
+    region: { type: String }
 }, {
     timestamps: true
 })
