@@ -33,7 +33,9 @@ const DesignSchema = new mongoose.Schema({
     },
     pages: [pageSchema],
     popup: { active: { type: Boolean }, wait: { type: Number }, title: { type: String }, description: { type: String }, content: { type: String }, buttonText: { type: String }, buttonLink: { type: String } },
-    whatsapp: { type: Boolean }
+    whatsapp: { type: Boolean },
+    instagram: { type: Boolean },
+    chatView: { type: Boolean }
 }, {
     timestamps: true
 })
