@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { CreateMeeting, editCalendar, getCalendar, getOneCalendar, deleteCalendar, getMeeting, getMeetings, deleteMeeting, editMeeting, getMeetingsEmail } from '../controllers/meetings.controllers.js'
+import { CreateMeeting, editCalendar, getCalendar, getOneCalendar, deleteCalendar, getMeeting, getMeetings, deleteMeeting, getMeetingsEmail } from '../controllers/meetings.controllers.js'
 
 const router = Router()
 
@@ -18,8 +18,6 @@ router.get('/meeting/:id', getMeeting)
 router.get('/meetings', getMeetings)
 
 router.delete('/meeting/:id', deleteMeeting)
-
-router.put('/meeting/:id', editMeeting)
 
 router.get('/meetings/:email', getMeetingsEmail)
 

@@ -233,35 +233,17 @@ export const deleteMeeting = async (req, res) => {
     try {
         const meetingDelete = await Meeting.findOneAndDelete(req.params.id)
         res.json(meetingDelete)
-        await sendEmailBrevo({ content: `
-            <h1 style="font-weight: 500; margin-bottom: 0px; color: #2A2A2A; text-align: center;">Tu llamada ha sido cancelada correctamente</h1>
-            <p style="font-size: 16px; color: #2D2D2D; text-align: center;">¡Hola ${meetingDelete.firstName}! Te queriamos avisar que tu llamada ha sido cancelada correctamente.</p>
-        `, subject: `¡Hola ${meetingDelete.firstName}! Tu llamada ha sido cancelada con exito`, email: meetingDelete.email })
-    } catch (error) {
-        return res.status(500).json({message: error.message})
-    }
-}
-
-export const editMeeting = async (req, res) => {
-    try {
-        const meetingEdit = await Meeting.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        const fechaLlamada = meetingEdit.date.toLocaleDateString('es-ES', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric'
-        });
-        res.json(meetingEdit)
-        await sendEmailBrevo({ content: `
-            <h1 style="font-weight: 500; margin-bottom: 0px; color: #2A2A2A; text-align: center;">Tu llamada ha sido reagendada correctamente</h1>
-            <p style="font-size: 16px; color: #2D2D2D; text-align: center;">¡Hola ${meetingEdit.firstName}! Te queriamos avisar que tu llamada para ver tu caso con respecto a la declaración de renta año 2024 ha sido reagendada correctamente.</p>
-            <p style="font-size: 16px; color: #2D2D2D; text-align: center;">Fecha: ${fechaLlamada}</p>
-            <div style="display: flex; margin-bottom: 6px;">
-                <a href="${process.env.WEB_URL}/clase-gratis-renta-2024" target="_blank" style="padding: 8px 21px; border: none; text-decoration: none; color: white; font-size: 16px; margin: auto; width: fit-content; margin-bottom: 18px; cursor: pointer; background-color: #3478F5;">Ingresar a la llamada</a>
-            </div>
-        `, subject: `¡Hola ${meetingEdit.firstName}! Tu llamada ha sido reagendada con exito`, email: meetingEdit.email })
+        if (meetingDelete.type === 'Llamada por Zoom') {
+            const clientData = await ClientData.find()
+            const storeData = await StoreData.find()
+            const style = await Style.find()
+            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu llamada ha sido cancelada`, title: 'Lamentablemente tu llamada ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu llamada con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData.phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
+        } else {
+            const clientData = await ClientData.find()
+            const storeData = await StoreData.find()
+            const style = await Style.find()
+            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu visita ha sido cancelada`, title: 'Lamentablemente tu visita ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu visita con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData.phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
+        }
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
