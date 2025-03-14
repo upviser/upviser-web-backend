@@ -237,12 +237,12 @@ export const deleteMeeting = async (req, res) => {
             const clientData = await ClientData.find()
             const storeData = await StoreData.find()
             const style = await Style.find()
-            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu llamada ha sido cancelada`, title: 'Lamentablemente tu llamada ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu llamada con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData.phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
+            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu llamada ha sido cancelada`, title: 'Lamentablemente tu llamada ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu llamada con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData[0].phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
         } else {
             const clientData = await ClientData.find()
             const storeData = await StoreData.find()
             const style = await Style.find()
-            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu visita ha sido cancelada`, title: 'Lamentablemente tu visita ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu visita con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData.phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
+            await sendEmailBrevo({ subscribers: [{ name: meetingDelete.firstName, email: meetingDelete.email }], emailData: { affair: `Hola ${meetingDelete.firstName}, tu visita ha sido cancelada`, title: 'Lamentablemente tu visita ha sido cancelada', paragragh: `Hola ${meetingDelete.firstName}, te queriamos avisar que tu visita con nosotros ha sido cancelada, para cualquier consulta comunicate con nosotros de nuestro Whatsapp.`, buttonText: 'Hablar por Whatsapp', url: `https://wa.me/+569${storeData[0].phone}` }, clientData: clientData, storeData: storeData[0], style: style[0] })
         }
     } catch (error) {
         return res.status(500).json({message: error.message})
