@@ -76,7 +76,7 @@ export const sendEmailBrevo = async ({ subscribers, emailData, clientData, store
                                                             ${emailData.buttonText && emailData.buttonText !== '' && emailData.url && emailData.url !== ''
                                                                 ? `
                                                                     <br>
-                                                                    <a href="${replacePlaceholders(emailData.url, dataMap)}" style="padding: 10px 30px; background-color: ${style?.primary}; border: none; color: ${style?.button}; border-radius: ${style?.form !== 'Cuadradas' ? `${style?.borderButton}px` : ''}; font-size: 15px; text-decoration: none;">${emailData.buttonText}</a>
+                                                                    <a href="${replacePlaceholders(emailData.url, dataMap)}" style="padding: 10px 30px; background-color: ${style?.primary}; border: none; color: ${style?.button}; border-radius: ${style?.form !== 'Cuadradas' ? `${style?.borderButton}px` : '0px'}; font-size: 15px; text-decoration: none;">${emailData.buttonText}</a>
                                                                 `
                                                                 : ''
                                                             }
