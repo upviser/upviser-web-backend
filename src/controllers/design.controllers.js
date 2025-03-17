@@ -125,7 +125,7 @@ export const createDefaultPages = async (req, res) => {
               header: true,
               metaTitle: 'Inicio',
               design: [
-                { content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: 'https://upvisor-web-cdn.b-cdn.net/Imagen%20prueba.jpg' }] } },
+                { content: 'Carrusel', info: { banner: [{ title: 'Lorem ipsum', description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.', button: 'Lorem ipsum', buttonLink: '', image: '' }] } },
                 { content: 'Suscripción', info: { title: 'Suscribete a nuestra lista' } }
               ]
             },
