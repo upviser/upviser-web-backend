@@ -11,6 +11,7 @@ const StoreDataSchema = mongoose.Schema({
   facebook: { type: String },
   tiktok: { type: String },
   whatsapp: { type: String },
+  mapsLink: { type: String },
   address: { type: String },
   departament: { type: String },
   city: { type: String },
