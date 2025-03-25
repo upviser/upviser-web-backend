@@ -5,6 +5,7 @@ const CallSchema = new mongoose.Schema({
     nameMeeting: { type: String, required: true, unique: true },
     title: { type: String },
     duration: { type: String },
+    intervals: { type: String },
     description: { type: String },
     price: { type: Number },
     labels: [{ type: { type: String }, text: { type: String }, data: { type: String }, datas: [{ type: String }] }],
